@@ -1,13 +1,11 @@
 "use client"
 import React from 'react';
+import Tasks from './Tasks/Tasks';
+
 export default function Home() {
 
   
   return (
-    <main className="">
-
-      <h1>Home page</h1>
-     
-    </main>
+    <Tasks />
   );
 }

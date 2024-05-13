@@ -1,7 +1,8 @@
 "use client";
-import { useContext,useState } from "react";
+import { useContext,useState, useEffect } from "react";
 import { createContext } from "react";
 import themes from './theme.js'
+import axios from "axios";
 
 
 const GlobalContext = createContext()
@@ -17,6 +18,21 @@ export function GlobalProvider({children}) {
     const [selectedTheme, setSelectedTheme] = useState(0)
 
     const theme = themes[selectedTheme]
+
+    const getAllTasks = async () => {
+        try{
+
+            const allTasks = await axios.get('Api/tasks')
+            console.log(allTasks.data)
+
+        }catch(error){
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        getAllTasks()
+    }, [])
 
 
 
