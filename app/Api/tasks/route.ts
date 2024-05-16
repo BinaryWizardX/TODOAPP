@@ -1,5 +1,5 @@
 import {NextResponse} from 'next/server';
-import { auth } from '@clerk/nextjs/server';
+import { auth, getAuth } from '@clerk/nextjs/server';
 import prisma from '@/app/Utils/connect';
 
 export async function POST(req:Request){
@@ -76,7 +76,10 @@ export async function GET(rq:Request){
 
     try{
 
+        
+
         const {userId} = auth();
+        console.log(userId+"userId")
 
         if(!userId){
             return NextResponse.json({error:"Unauthorized"},{status:401})

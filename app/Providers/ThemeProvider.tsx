@@ -11,7 +11,7 @@ interface Props {
 
 function ThemeProvider({children} : Props) {
   return (
-    <GlobalProvider>
+    <GlobalProvider >
         {children}
         
     </GlobalProvider>

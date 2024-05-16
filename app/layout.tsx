@@ -27,8 +27,9 @@ export default function RootLayout({
 
   
 
-
+  
   const {userId} = auth();
+  
   
   
  

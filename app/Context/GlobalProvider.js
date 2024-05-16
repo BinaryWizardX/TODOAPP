@@ -14,6 +14,8 @@ const updateGlobalContext = createContext()
 
 
 export function GlobalProvider({children}) {
+
+    const [tasks, setTasks] = useState([])
     
     const [selectedTheme, setSelectedTheme] = useState(0)
 
@@ -24,6 +26,8 @@ export function GlobalProvider({children}) {
 
             const allTasks = await axios.get('Api/tasks')
             console.log(allTasks.data)
+            setTasks(allTasks.data)
+            
 
         }catch(error){
             console.log(error)
@@ -39,6 +43,7 @@ export function GlobalProvider({children}) {
     return (
         <GlobalContext.Provider value={{
             theme,
+            tasks,
         }}>
             <updateGlobalContext.Provider value={{}}>
                 {children}
