@@ -8,6 +8,8 @@ import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@c
 import { auth } from '@clerk/nextjs/server';
 import { redirect } from "next/dist/server/api-utils";
 import Navigate from "./Providers/Navigate";
+import NextTopLoader from 'nextjs-toploader';
+
 
 
 
@@ -29,6 +31,8 @@ export default function RootLayout({
 
   
   const {userId} = auth();
+
+  
   
   
   
@@ -44,7 +48,11 @@ export default function RootLayout({
         <body className={inter.className}>
 
           
+          <NextTopLoader
+          
+           color= "#27AE60"
 
+           />
 
           <ThemeProvider>
             <SideBarStyleProvider>

@@ -3,6 +3,7 @@ import { useGlobalContext } from '../Context/GlobalProvider';
 import styled from 'styled-components'
 import { FaEdit } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
+import {Formatdate} from '../Utils/Formatdate'
 
 interface Task {
   id: string;
@@ -37,13 +38,18 @@ function TaskItem({ task} : Props) {
         </div>
         <div className='lower-part flex flex-col gap-2'>
 
-            <p>{task.date}</p>
+            <p>{Formatdate(task.date)}</p>
           <div className='flex items-center justify-between'>
             <button className={`${task.isCompleted ? 'completed' : 'incompleted'} py-1 px-2 rounded-3xl }`}>{task.isCompleted ? 'Completed' : 'Incomplete'}</button>
 
             <div className='w-3/12 flex justify-between'>
-              <FaEdit className='cursor-pointer' />
-              <FaTrash className='cursor-pointer' />
+              <button>
+                <FaEdit className='cursor-pointer' />
+              </button>
+              <button >
+                <FaTrash className='cursor-pointer' />
+              </button>
+              
             </div>
           </div>
         </div>

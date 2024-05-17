@@ -11,10 +11,10 @@ function CreateTask() {
   return (
     <StyledCreateTask theme={theme}>
 
-        <div className=' flex items-center justify-center gap-2'>
+        <button className=' flex items-center justify-center gap-2'>
             <FaPlus />
             <h1>Create New Task</h1>
-        </div>
+        </button>
 
     </StyledCreateTask>
     
@@ -35,6 +35,11 @@ const StyledCreateTask = styled.div`
     border-radius: 1rem;
     border: 3px dashed ${(props) => props.theme.colorGrey5};
     transition: all 0.3s ease;
+
+    &:hover {
+      background-color: ${(props) => props.theme.colorGrey5};
+      color: ${(props) => props.theme.colorGrey0};
+    }
 
 
 

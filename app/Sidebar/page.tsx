@@ -6,6 +6,9 @@ import { menu } from '@/app/Utils/Icons'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import Button from '../Button/Button'
+import { SignOutButton } from '../Components/SignOutButton'
+import { FaSignOutAlt } from "react-icons/fa";
 
 
 import { useGlobalContext,useUpdateGlobalContext } from '../Context/GlobalProvider'
@@ -66,6 +69,10 @@ function Sidebar() {
         }
         )}
       </ul>
+      <div className='w-full absolute bottom-7 justify-center items-center font-bold cursor-pointer flex hover:scale-110 hover:text-red-500 transition ease-in-out delay-150 text-xl gap-1'>
+        <FaSignOutAlt />
+        <SignOutButton />
+      </div>
 
     </StyledSideBar>
   )
