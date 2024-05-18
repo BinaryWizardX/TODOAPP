@@ -1,4 +1,5 @@
-import React from 'react'
+"use client";
+import React, {useState} from 'react'
 import CreateContents from '../Components/CreateContents'
 import styled from 'styled-components'
 import TaskItem from '../TaskItem/TaskItem'
@@ -32,6 +33,17 @@ function Tasks({title, tasksarr}: Props) {
 
  
   const {theme} = useGlobalContext()
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const openModal = () => {
+    setIsModalOpen(true)
+    
+  }
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
+
  
   return (
     
@@ -47,9 +59,16 @@ function Tasks({title, tasksarr}: Props) {
             <TaskItem key={task.userId} task={task} />
           )
         })}
-        <CreateTask />
+        <button onClick={()=> openModal()}>
+
+          <CreateTask />
+
+        </button>
+        
 
       </div>
+
+      <CreateContents isModalOpen={isModalOpen} onClose={closeModal} />
       
     </StyledTasks>
     
