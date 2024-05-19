@@ -1,7 +1,7 @@
 "use client"
 
 import axios from 'axios'
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import toast, {Toaster} from 'react-hot-toast'
 import styled from 'styled-components'
 import { IoCloseCircleSharp } from "react-icons/io5";
@@ -10,11 +10,15 @@ import { useGlobalContext } from '../Context/GlobalProvider'
 interface Props {
     isModalOpen: boolean;
     onClose : () => void;
+    modalType : string;
+    taskID : string;
 }
 
-function CreateContents({isModalOpen, onClose}: Props) {
+function CreateContents({isModalOpen, onClose , modalType, taskID}: Props) {
 
-    const {theme} = useGlobalContext()
+    const {theme,GetASingleTask} = useGlobalContext()
+
+    console.log(modalType)
 
 
     if(isModalOpen !== true){
@@ -78,7 +82,7 @@ function CreateContents({isModalOpen, onClose}: Props) {
             setDate("")
             setCompleted(false)
             setImportant(false)
-
+            onClose()
 
         }catch(e){
             console.log(e)
@@ -87,6 +91,54 @@ function CreateContents({isModalOpen, onClose}: Props) {
         
     }
 
+    const handleEdit = async(e : React.FormEvent) => {
+        e.preventDefault()
+        try{
+
+            const response = await axios.put(`/Api/tasks/${taskID}`,{
+                title,
+                description,
+                date,
+                isCompleted:completed,
+                isImportant:important
+            })
+
+            if(response){
+                toast.success("Task Updated Successfully")
+                onClose()
+            }
+
+            if(response.data.error){
+                toast.error(response.data.error)
+            }
+
+            
+
+        }
+        catch(e){
+            console.log(e)
+        }
+    }
+
+    const SingleInstanceData = async()=>{
+        if(modalType === 'Edit'){
+
+            const response = await GetASingleTask(taskID)
+
+            console.log(response.data.title)
+             setTitle(response.data.title)
+             setDescription(response.data.description)
+             setDate(response.data.date)
+             setCompleted(response.data.isCompleted)
+             setImportant(response.data.isImportant)
+        }
+    }
+
+
+    useEffect(()=>{
+        SingleInstanceData()
+    
+    },[modalType])
 
 
     
@@ -98,12 +150,12 @@ function CreateContents({isModalOpen, onClose}: Props) {
 
         <div className='p-6 bg-white w-[450px] h-[460px] relative rounded-xl'>
 
-            <button onClick={onClose} className='absolute -top-2 -right-2 text-3xl text-red-500 hover:scale-105'><IoCloseCircleSharp/></button>
+            
 
         
-        <h1 className='text-black font-bold text-2xl mb-8'>New Task</h1>
+        <h1 className='text-black font-bold text-2xl mb-8'>{modalType ==='New' ? "New Task" : "Edit Task"}</h1>
 
-        <form onSubmit={handleSubmit} className='text-black '>
+        <form onSubmit={modalType === 'New' ? handleSubmit : handleEdit} className='text-black '>
             <div className='w-full flex justify-between  items-center'>
                 <label htmlFor='title'>Title : </label>
                 <input
@@ -158,6 +210,7 @@ function CreateContents({isModalOpen, onClose}: Props) {
                 name='completed'
                 checked={completed}
                 onChange={handleChange('completed')}
+                className='ml-14'
 
 
                 
@@ -165,7 +218,7 @@ function CreateContents({isModalOpen, onClose}: Props) {
 
             </div>
 
-            <div className='w-full flex  items-center mt-5'>
+            <div className='w-full flex  items-center mt-5 '>
                 <label htmlFor="important">Important : </label>
 
                 <input
@@ -174,12 +227,15 @@ function CreateContents({isModalOpen, onClose}: Props) {
                 name='important'
                 checked={important}
                 onChange={handleChange('important')}
+                className='ml-16'
 
                 />
             </div>
-            <div className='w-full flex justify-center'>
+            <div className='w-full flex justify-end'>
 
-                <button className='mt-5 hover:bg-[#0FFF50]  bg-[#27AE60] py-1 px-3 rounded-lg' type='submit'>Create Task</button>
+                <button onClick={onClose} className='mt-5 border-2 border-[#D3D3D3]  py-1 px-3  mr-5'>Cancel</button>
+
+                <button className='mt-5   bg-[#27AE60] py-1 px-3 text-white' type='submit'>{modalType === "New" ? "Create Task" : "Edit Task"}</button>
 
             </div>
             

@@ -3,10 +3,14 @@ import { useContext,useState, useEffect } from "react";
 import { createContext } from "react";
 import themes from './theme.js'
 import axios from "axios";
+import toast from "react-hot-toast";
+
 
 
 const GlobalContext = createContext()
 const updateGlobalContext = createContext()
+
+
 
 
 
@@ -34,6 +38,32 @@ export function GlobalProvider({children}) {
         }
     }
 
+    const DeleteTask = async (id) =>{
+        try{
+
+            const response = await axios.delete(`Api/tasks/${id}`)
+            toast.success('Task Deleted')
+            getAllTasks()
+
+        }catch(error){
+            console.log(error)
+            alert('Error Deleting Task')
+        }
+    }
+
+    const GetASingleTask = async(id)=>{
+        try{
+
+            const response = await axios.get(`Api/tasks/${id}`)
+            console.log(response)
+            return response
+
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
+
     useEffect(() => {
         getAllTasks()
     }, [])
@@ -44,6 +74,9 @@ export function GlobalProvider({children}) {
         <GlobalContext.Provider value={{
             theme,
             tasks,
+            getAllTasks,
+            DeleteTask,
+            GetASingleTask,
         }}>
             <updateGlobalContext.Provider value={{}}>
                 {children}

@@ -27,21 +27,27 @@ import CreateTask from '../CreateTask/CreateTask';
 interface Props {
     title: string
     tasksarr: Task[]
+    
 }
 
 function Tasks({title, tasksarr}: Props) {
 
  
-  const {theme} = useGlobalContext()
+  const {theme, getAllTasks} = useGlobalContext()
 
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [modalType, setModalType] = useState('New')
 
-  const openModal = () => {
+  const openModal = (modType:string) => {
+    setModalType(modType)
     setIsModalOpen(true)
     
   }
   const closeModal = () => {
     setIsModalOpen(false)
+    if (getAllTasks) {
+      getAllTasks()
+    }
   }
 
  
@@ -59,7 +65,7 @@ function Tasks({title, tasksarr}: Props) {
             <TaskItem key={task.userId} task={task} />
           )
         })}
-        <button onClick={()=> openModal()}>
+        <button onClick={()=> openModal('New')}>
 
           <CreateTask />
 
@@ -68,7 +74,7 @@ function Tasks({title, tasksarr}: Props) {
 
       </div>
 
-      <CreateContents isModalOpen={isModalOpen} onClose={closeModal} />
+      <CreateContents isModalOpen={isModalOpen} onClose={closeModal} modalType={modalType} taskID='None' />
       
     </StyledTasks>
     

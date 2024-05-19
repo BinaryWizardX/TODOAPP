@@ -1,9 +1,10 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { useGlobalContext } from '../Context/GlobalProvider';
 import styled from 'styled-components'
 import { FaEdit } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 import {Formatdate} from '../Utils/Formatdate'
+import CreateContents from '../Components/CreateContents';
 
 interface Task {
   id: string;
@@ -26,7 +27,25 @@ interface Props {
 
 function TaskItem({ task} : Props) {
 
-  const {theme} = useGlobalContext()
+  const {theme,DeleteTask,getAllTasks} = useGlobalContext()
+
+  ///Edit task 
+  
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [modalType, setModalType] = useState('New')
+
+  const openModal = (modType:string) => {
+    setModalType(modType)
+    setIsModalOpen(true)
+    
+  }
+  const closeModal = () => {
+    setIsModalOpen(false)
+    if (getAllTasks) {
+      getAllTasks()
+    }
+  }
    
     
   return (
@@ -43,10 +62,14 @@ function TaskItem({ task} : Props) {
             <button className={`${task.isCompleted ? 'completed' : 'incompleted'} py-1 px-2 rounded-3xl }`}>{task.isCompleted ? 'Completed' : 'Incomplete'}</button>
 
             <div className='w-3/12 flex justify-between'>
-              <button>
+              <button onClick={()=>openModal("Edit")}>
                 <FaEdit className='cursor-pointer' />
               </button>
-              <button >
+              <button
+
+              onClick={()=>DeleteTask(task.id)}
+              
+              >
                 <FaTrash className='cursor-pointer' />
               </button>
               
@@ -56,6 +79,7 @@ function TaskItem({ task} : Props) {
         
 
       </div>
+      <CreateContents isModalOpen={isModalOpen} onClose={closeModal} modalType={modalType} taskID={task.id}/>
     </StyledTaskItem>
   )
 }

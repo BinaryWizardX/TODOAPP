@@ -16,7 +16,7 @@ export default function Home() {
   
   return (
     <Suspense fallback={<p>Loading ....</p>}>
-      <Tasks title="all tasks" tasksarr={tasksarray}/> 
+      <Tasks title="all tasks" tasksarr={tasksarray} /> 
     </Suspense>
   );
 }
