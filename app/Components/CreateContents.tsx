@@ -18,7 +18,7 @@ function CreateContents({isModalOpen, onClose , modalType, taskID}: Props) {
 
     const {theme,GetASingleTask} = useGlobalContext()
 
-    console.log(modalType)
+    
 
 
     if(isModalOpen !== true){
@@ -75,8 +75,9 @@ function CreateContents({isModalOpen, onClose , modalType, taskID}: Props) {
             if(response.data.error){
                 toast.error(response.data.error)
             }
-            console.log(response)
-            toast.success("Task Created Successfully")
+            
+            toast.success("Task Created Successfully ")
+            
             setTitle("")
             setDescription("")
             setDate("")

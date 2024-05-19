@@ -42,8 +42,8 @@ export function GlobalProvider({children}) {
         try{
 
             const response = await axios.delete(`Api/tasks/${id}`)
-            toast.success('Task Deleted')
             getAllTasks()
+            return response
 
         }catch(error){
             console.log(error)

@@ -11,10 +11,10 @@ function CreateTask() {
   return (
     <StyledCreateTask theme={theme}>
 
-        <button className=' flex items-center justify-center gap-2'>
+        <div className=' flex items-center justify-center gap-2'>
             <FaPlus />
             <h1>Create New Task</h1>
-        </button>
+        </div>
 
     </StyledCreateTask>
     

@@ -5,6 +5,7 @@ import { FaEdit } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 import {Formatdate} from '../Utils/Formatdate'
 import CreateContents from '../Components/CreateContents';
+import toast, {Toaster} from 'react-hot-toast'
 
 interface Task {
   id: string;
@@ -67,7 +68,14 @@ function TaskItem({ task} : Props) {
               </button>
               <button
 
-              onClick={()=>DeleteTask(task.id)}
+              onClick={async()=>{
+                const response = await DeleteTask(task.id)
+                if(response){
+                  toast.success('Task Deleted Successfully')
+                  
+                }
+              
+              }}
               
               >
                 <FaTrash className='cursor-pointer' />
@@ -77,6 +85,8 @@ function TaskItem({ task} : Props) {
           </div>
         </div>
         
+        <Toaster />
+
 
       </div>
       <CreateContents isModalOpen={isModalOpen} onClose={closeModal} modalType={modalType} taskID={task.id}/>
