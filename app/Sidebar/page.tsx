@@ -86,6 +86,7 @@ const StyledSideBar = styled.nav`
   border-radius: 1rem;
   color: ${(props)=>props.theme.harshtext};
   height: 100%;
+  
 
   .my-image{
 

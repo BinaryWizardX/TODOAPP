@@ -23,6 +23,8 @@ export function GlobalProvider({children}) {
     
     const [selectedTheme, setSelectedTheme] = useState(0)
 
+    const [isLoading, setIsLoading] = useState(true)
+
     const theme = themes[selectedTheme]
 
     const getAllTasks = async () => {
@@ -31,6 +33,7 @@ export function GlobalProvider({children}) {
             const allTasks = await axios.get('Api/tasks')
             console.log(allTasks.data)
             setTasks(allTasks.data)
+            setIsLoading(false)
             
 
         }catch(error){
@@ -77,6 +80,7 @@ export function GlobalProvider({children}) {
             getAllTasks,
             DeleteTask,
             GetASingleTask,
+            isLoading,
         }}>
             <updateGlobalContext.Provider value={{}}>
                 {children}

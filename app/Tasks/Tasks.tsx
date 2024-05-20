@@ -11,6 +11,9 @@ import CreateTask from '../CreateTask/CreateTask';
 
 
 
+
+
+
     interface Task {
       id: string;
       title: string;
@@ -33,7 +36,9 @@ interface Props {
 function Tasks({title, tasksarr}: Props) {
 
  
-  const {theme, getAllTasks} = useGlobalContext()
+  const {theme, getAllTasks,isLoading} = useGlobalContext()
+
+  
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalType, setModalType] = useState('New')
@@ -58,18 +63,41 @@ function Tasks({title, tasksarr}: Props) {
       <h1 className='capitalize text-2xl p-2 title-h1 relative mb-5'>{title}</h1>
       
       <div className='identify gap-10 grid  lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 justify-center lg:justify-center'>
+        {!isLoading ? 
+             <>
+        
 
-        {tasksarr !== undefined && tasksarr.map((task) => {
+              {tasksarr !== undefined && tasksarr.map((task) => {
+                        
+                return(
+                  <TaskItem key={task.userId} task={task} />
+                )
+              })}
+
+                <button onClick={()=> openModal('New')}>
+
+                <CreateTask />
+
+                </button>
+
+
+            </>
           
-          return(
-            <TaskItem key={task.userId} task={task} />
-          )
-        })}
-        <button onClick={()=> openModal('New')}>
+          
+          : 
 
-          <CreateTask />
+          
+        
 
-        </button>
+        <div className='loader-cover'>
+          <div className='loader'></div>
+        </div>
+          
+          
+          
+        }
+       
+        
         
 
       </div>
@@ -97,6 +125,22 @@ const StyledTasks = styled.main`
     width: 120px;
     height: 5px;
     background-color: ${(props)=>props.theme.colorGreenDark};
+
+  }
+
+  .loader-cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+    
 
     
     `

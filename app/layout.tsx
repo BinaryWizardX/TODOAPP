@@ -59,7 +59,7 @@ export default function RootLayout({
                 <>
                   { userId && <Sidebar />}
         
-                  { <div className="w-full  rounded-lg bg-[#212121]">
+                  { userId && <div className="w-full  rounded-lg bg-[#212121]">
 
                         {children}  
 
