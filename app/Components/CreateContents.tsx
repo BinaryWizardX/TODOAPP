@@ -147,16 +147,16 @@ function CreateContents({isModalOpen, onClose , modalType, taskID}: Props) {
 
   return (
 
-    <StyledCreateContents>
+    <StyledCreateContents onClick={onClose}>
 
-        <div className='p-6 bg-white w-[450px] h-[460px] relative rounded-xl'>
+        <div className='p-6 bg-white w-[450px] h-[460px] relative rounded-xl cover-container' onClick={(e)=> e.stopPropagation()}>
 
             
 
         
         <h1 className='text-black font-bold text-2xl mb-8'>{modalType ==='New' ? "New Task" : "Edit Task"}</h1>
 
-        <form onSubmit={modalType === 'New' ? handleSubmit : handleEdit} className='text-black '>
+        <form onSubmit={modalType === 'New' ? handleSubmit : handleEdit} className='text-black cover-container'>
             <div className='w-full flex justify-between  items-center'>
                 <label htmlFor='title'>Title : </label>
                 <input
@@ -268,12 +268,23 @@ align-items: center;
 justify-content: center;
 z-index: 1000;
 
+
+
 textarea,input{
     vertical-align: top;
 }
 
 input[type=checkbox] {
     transform: scale(1.5);
+}
+
+
+.cover-container{
+
+    transition: transform 0.3s ease-out;
+
+    
+
 }
 
 

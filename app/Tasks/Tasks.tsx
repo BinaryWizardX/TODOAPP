@@ -60,7 +60,7 @@ function Tasks({title, tasksarr}: Props) {
     
 
     <StyledTasks theme={theme}>
-      <h1 className='capitalize text-2xl p-2 title-h1 relative mb-5'>{title}</h1>
+      <h1 className='capitalize text-2xl p-2 title-h1 relative mb-5 z-20 ml-5'>{title}</h1>
       
       <div className='identify gap-10 grid  lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 justify-center lg:justify-center'>
         {!isLoading ? 

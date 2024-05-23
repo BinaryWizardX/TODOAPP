@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -9,6 +10,7 @@ import { auth } from '@clerk/nextjs/server';
 import { redirect } from "next/dist/server/api-utils";
 import Navigate from "./Providers/Navigate";
 import NextTopLoader from 'nextjs-toploader';
+import StyledComponentsRegistry from "./lib/registry";
 
 
 
@@ -47,27 +49,30 @@ export default function RootLayout({
         
         <body className={inter.className}>
 
+        <StyledComponentsRegistry>
           
-          <NextTopLoader
+            <NextTopLoader
+            
+            color= "#27AE60"
+
+            />
+
+            <ThemeProvider>
+              <SideBarStyleProvider>
+                  <>
+                    { userId && <Sidebar />}
           
-           color= "#27AE60"
+                    {  <div className="w-full  rounded-lg bg-[#212121] ">
 
-           />
+                          {children}  
 
-          <ThemeProvider>
-            <SideBarStyleProvider>
-                <>
-                  { userId && <Sidebar />}
-        
-                  { userId && <div className="w-full  rounded-lg bg-[#212121]">
+                      </div>}
+                    
+                  </>
+                </SideBarStyleProvider>
+            </ThemeProvider>
 
-                        {children}  
-
-                    </div>}
-                  
-                </>
-              </SideBarStyleProvider>
-          </ThemeProvider>
+        </StyledComponentsRegistry>
           
           </body>
       </html>

@@ -9,9 +9,15 @@ import { usePathname } from 'next/navigation'
 import Button from '../Button/Button'
 import { SignOutButton } from '../Components/SignOutButton'
 import { FaSignOutAlt } from "react-icons/fa";
+import { useUser } from "@clerk/clerk-react";
+import { UserButton } from '@clerk/nextjs'
+import { FaHamburger } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
+
 
 
 import { useGlobalContext,useUpdateGlobalContext } from '../Context/GlobalProvider'
+import { Props } from 'next/script'
 
 
 
@@ -19,14 +25,23 @@ function Sidebar() {
 
   const router = useRouter()
 
+  const {user} = useUser()
+  
+  
+  
+  const {theme, setCollapse, collapse} = useGlobalContext()
+
+
+
   const handleClick = (path:string) => {
     router.push(path)
+    setCollapse(true)
     
   }
 
   
 
-  const {theme}:any = useGlobalContext()
+  
   
 
   //console.log(theme.sidebarWidth)
@@ -34,24 +49,61 @@ function Sidebar() {
   const [selectedLi , setSelectedLi] = useState(0);
 
   const currentpath = usePathname()
+
+  const userButtonAppearance = {
+    elements : {
+      userButtonAvatarBox: "w-16 h-16",
+    }
+  }
+
+  
   
 
   return (
-    <StyledSideBar theme={theme}>
-      <div className='profile p-6 '>
-        <div className="profile-overlay hover:bg-white"></div>
-         <div className='flex items-center justify-center gap-3 hover:bg-black p-7 cursor-default rounded-lg'>
-            <Image src="/myimage.jpg" alt='profile-photo' width={50} height={50} className='rounded-full my-image' />
+    <StyledSideBar theme={theme} collapse={collapse}>
+
+        <div className='hamburger-menu hidden text-white text-2xl' onClick={()=> setCollapse(!collapse)}>
+
+          {collapse ? 
+
+              <FaHamburger  />
+
+          :
+
+              <FaArrowLeft />
+          
+          }
+          
+        </div>
+
+
+
+      <div className='profile p-6 relative'>
+        <div className="profile-overlay ">
+          
+        </div>
+         <div className='flex items-center justify-center gap-3 hover:bg-black bg-[#1E1E1E] p-7 cursor-default rounded-lg'>
+            <div className=''>
+
+              <UserButton
+
+                appearance={userButtonAppearance}
+              
+              />
+
+            </div>
+              
+            
             <div className='flex flex-col'>
 
-              <span>Harshana</span>
-              <span>Prabhath</span>
+              <span>{user?.firstName}</span>
+              <span>{user?.lastName}</span>
 
             </div>
             
          </div>
       </div>
-      <ul>
+      <ul className='mt-[45px]'>
         {menu.map((item,index)=>{
           return(
             <li key={index} className={`flex items-center justify-start gap-5 pl-10 py-2 nav-list-item ${currentpath === item.path ? 'active' : ''}`}
@@ -78,14 +130,37 @@ function Sidebar() {
   )
 }
 
-const StyledSideBar = styled.nav`
+const StyledSideBar = styled.nav<{theme : any, collapse : boolean}>`
   position: relative;
   width: ${(props)=>props.theme.sidebarWidth};
-  background-color: ${(props) => props.theme.colorBg2};
+  background-color: #1A1A1A;
   border: 2px solid ${(props)=>props.theme.borderColor2};
   border-radius: 1rem;
   color: ${(props)=>props.theme.harshtext};
   height: 100%;
+  transition: all 0.5s ease-in-out;
+
+  @media (max-width: 600px) {
+        
+    position : fixed;
+    top : 0;
+    left : 0;
+    z-index: 1000;
+    transform : ${(props)=> props.collapse ? 'translateX(-240px)' : 'translateX(0px)'};
+
+    .hamburger-menu{
+      display:block;
+      position: absolute;
+      right: -48px;
+      top : 16px;
+      background-color : #1A1A1A;
+      padding: 12px;
+      border-top-right-radius: 12px;
+      border-bottom-right-radius: 12px;
+      cursor: pointer;
+    }
+    
+  }
   
 
   .my-image{

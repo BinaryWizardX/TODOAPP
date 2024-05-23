@@ -1,8 +1,8 @@
 import { SignUp } from "@clerk/nextjs";
 
-import { Jersey_25 } from "next/font/google";
 
-const jersey = Jersey_25({ weight: "400", subsets: ["latin"] });
+
+
 
 export default function Page() {
   return(

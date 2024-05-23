@@ -28,7 +28,7 @@ interface Props {
 
 function TaskItem({ task} : Props) {
 
-  const {theme,DeleteTask,getAllTasks} = useGlobalContext()
+  const {statusHandler, theme, DeleteTask, getAllTasks, GetCompletedTask, GetImportantTask} = useGlobalContext()
 
   ///Edit task 
   
@@ -46,6 +46,19 @@ function TaskItem({ task} : Props) {
     if (getAllTasks) {
       getAllTasks()
     }
+    GetCompletedTask()
+    GetImportantTask()
+  }
+
+  interface handleStatusProps {
+    status : boolean
+    taskId : string
+  }
+
+  const handletaskstatus = async ({status, taskId}:handleStatusProps) => {
+    
+    statusHandler(status, taskId)
+
   }
    
     
@@ -60,7 +73,7 @@ function TaskItem({ task} : Props) {
 
             <p>{Formatdate(task.date)}</p>
           <div className='flex items-center justify-between'>
-            <button className={`${task.isCompleted ? 'completed' : 'incompleted'} py-1 px-2 rounded-3xl }`}>{task.isCompleted ? 'Completed' : 'Incomplete'}</button>
+            <button className={`${task.isCompleted ? 'completed' : 'incompleted'} py-1 px-2 rounded-3xl }`} onClick={() => handletaskstatus({ status: task.isCompleted, taskId: task.id })}>{task.isCompleted ? 'Completed' : 'Incomplete'}</button>
 
             <div className='w-3/12 flex justify-between'>
               <button onClick={()=>openModal("Edit")}>
