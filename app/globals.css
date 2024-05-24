@@ -51,4 +51,40 @@ body {
   100%{transform: rotate(1turn)}
   }
 
+  
 
+  @media (min-width: 850px) {
+    .sign-up-div{
+      display: flex;
+      height: 614px;
+      width: 415px;
+      transform: translateX(-4px);
+      border-radius: 10px;
+      background: #1D976C;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #93F9B9, #1D976C);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #93F9B9, #1D976C); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    }
+    .sign-up-cover{
+      background: #232526;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #414345, #232526);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #414345, #232526); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      
+    }
+    .sign-in-div{
+      display: flex;
+      height: 460px;
+      width: 415px;
+      transform: translateX(-4px);
+      border-radius: 10px;
+      background: #1D976C;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #93F9B9, #1D976C);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #93F9B9, #1D976C); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+    .sign-in-cover{
+      background: #232526;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #414345, #232526);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #414345, #232526); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+    
+  }
