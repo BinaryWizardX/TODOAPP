@@ -11,7 +11,7 @@ export default function Page() {
 
    
 
-      <div className="flex flex-col items-center p-5 gap-7 custom-gradient rounded-lg">
+      <div className="flex flex-col items-center justify-center p-1 gap-1 custom-gradient absolute top-0 left-0 h-full w-full rounded-lg">
 
          
         <div className="flex flex-col gap-3 items-center justify-center">
